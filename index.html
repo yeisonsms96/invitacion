@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -668,7 +668,8 @@
   const themeBtn = document.getElementById('themeBtn');
   const html = document.documentElement;
   const saved = localStorage.getItem('theme');
-  if (saved) html.setAttribute('data-theme', saved);
+  // Modo oscuro por defecto; si ella ya eligió un tema, se respeta.
+  html.setAttribute('data-theme', saved || 'dark');
   updateIcon();
 
   themeBtn.addEventListener('click', () => {
