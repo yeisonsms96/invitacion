@@ -750,18 +750,6 @@
   }
   .beach-final.show { animation: fadeUp 0.6s ease forwards; }
 
-  .replay-btn {
-    margin-top: 14px;
-    background: rgba(255,255,255,0.85);
-    color: #6a2fc0;
-    font-size: 14px;
-    padding: 10px 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-  }
-  .replay-btn.show { opacity: 1; pointer-events: auto; }
-
   /* ====== Confeti ====== */
   .confetti {
     position: fixed;
@@ -929,18 +917,18 @@
 
     <div class="beach-content">
       <p class="beach-kicker">✈️ Destino sorpresa desbloqueado</p>
-      <h1 class="beach-title">Juli... ¿nos vamos a San Andrés? 🏝️</h1>
+      <h1 class="beach-title">Amor... nos vamos pa San Andrés 🏝️</h1>
 
       <div class="ticket" id="ticket">
         <div class="ticket-left">
           <p class="t-label">BOARDING PASS</p>
-          <p class="t-route">JULI <span>✈</span> YO</p>
+          <p class="t-route">DESTINO: JUNTOS <span>✈</span></p>
           <div class="t-row">
             <div><span class="t-k">Destino</span><span class="t-v">San Andrés 🇨🇴</span></div>
             <div><span class="t-k">Vista</span><span class="t-v">Mar de 7 colores 🌊</span></div>
           </div>
           <div class="t-row">
-            <div><span class="t-k">Pasajera</span><span class="t-v">Juli 💜</span></div>
+            <div><span class="t-k">Pasajera</span><span class="t-v">El amor de mi vida 💜</span></div>
             <div><span class="t-k">Fecha</span><span class="t-v">1 – 7 Ene 2027 ✨</span></div>
           </div>
           <div class="t-row">
@@ -957,7 +945,6 @@
 
       <button class="yes beach-btn" id="beachBtn">¡Obvio que sí, empaco ya! 🧳</button>
       <p class="beach-final" id="beachFinal">Nos espera el mar 🌊💜</p>
-      <button class="replay-btn" id="replayBtn">Ver de nuevo 🔄</button>
     </div>
 
     <div class="waves"></div>
@@ -1167,7 +1154,6 @@
   // Botón final del viaje
   const beachBtn = document.getElementById('beachBtn');
   const beachFinal = document.getElementById('beachFinal');
-  const replayBtn = document.getElementById('replayBtn');
   let accepted = false;
   beachBtn.addEventListener('click', () => {
     if (accepted) return;
@@ -1177,13 +1163,6 @@
     if (navigator.vibrate) navigator.vibrate([40, 60, 40]);
     launchConfetti(120);           // ¡confeti!
     beachFloaties();               // ráfaga extra de emojis
-    setTimeout(() => replayBtn.classList.add('show'), 900);
-  });
-
-  // Ver de nuevo: reinicia toda la experiencia (sin el aviso de salida)
-  replayBtn.addEventListener('click', () => {
-    allowLeave = true;
-    location.reload();
   });
 
   // ----- Si intenta "darle atrás": mensaje gracioso -----
