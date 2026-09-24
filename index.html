@@ -790,58 +790,21 @@
     height: 38%;
     background: linear-gradient(180deg, #ffb36b 0%, #d98a5a 8%, #6a4b8a 40%, #2a1a5e 100%);
   }
-  /* Pareja caminando de la mano: cruza la orilla lento y romántico */
-  .couple {
-    position: absolute;
-    bottom: 20%;
-    right: -160px;
-    width: 150px;
-    z-index: 3;
-    animation: walkAcross 14s linear 0.6s forwards;
-  }
-  @keyframes walkAcross {
-    0% { right: -160px; }
-    100% { right: 102%; }
-  }
-  .couple svg {
-    width: 100%;
-    height: auto;
-    display: block;
-    /* mirando a la izquierda (sentido del paseo) */
-    transform: scaleX(-1);
-    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.3));
-    animation: walkBob 0.9s ease-in-out infinite;
-  }
-  @keyframes walkBob {
-    0%,100% { transform: scaleX(-1) translateY(0); }
-    50% { transform: scaleX(-1) translateY(-3px); }
-  }
 
-  /* piernas: pasitos suaves alternados */
-  .leg { transform-box: fill-box; transform-origin: top center; }
-  .l1a, .l2b { animation: stepWalkA 0.9s ease-in-out infinite; }
-  .l1b, .l2a { animation: stepWalkB 0.9s ease-in-out infinite; }
-  @keyframes stepWalkA {
-    0%,100% { transform: rotate(10deg); }
-    50% { transform: rotate(-10deg); }
-  }
-  @keyframes stepWalkB {
-    0%,100% { transform: rotate(-10deg); }
-    50% { transform: rotate(10deg); }
-  }
 
   .ride-text {
     position: absolute;
     left: 50%;
-    bottom: 12%;
+    bottom: 18%;
     transform: translateX(-50%);
-    width: 90%;
+    width: 88%;
     max-width: 420px;
     text-align: center;
     color: #fff;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 800;
-    text-shadow: 0 3px 14px rgba(0,0,0,0.5);
+    line-height: 1.35;
+    text-shadow: 0 3px 16px rgba(0,0,0,0.55);
     opacity: 0;
     z-index: 4;
   }
@@ -1054,40 +1017,7 @@
     </div>
     <div class="ride-sea"></div>
 
-    <!-- Dos personas caminando de la mano (silueta) -->
-    <div class="couple" id="couple">
-      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#1e0f30">
-          <!-- Persona 1 (ella) -->
-          <g class="person p1">
-            <circle cx="70" cy="40" r="15"/>
-            <!-- pelo largo -->
-            <path d="M56 40 C54 58, 58 74, 62 84 L70 84 C66 72, 64 56, 70 42 C64 38, 58 38, 56 40 Z"/>
-            <!-- torso (vestido) -->
-            <path d="M70 54 C60 54, 56 66, 56 92 C56 108, 60 120, 62 132 L88 132 C86 118, 84 106, 84 92 C84 66, 80 54, 70 54 Z"/>
-            <!-- pierna -->
-            <rect class="leg l1a" x="66" y="128" width="8" height="46" rx="4"/>
-            <rect class="leg l1b" x="76" y="128" width="8" height="46" rx="4"/>
-            <!-- brazo hacia el centro (tomados de la mano) -->
-            <rect x="82" y="76" width="34" height="8" rx="4" transform="rotate(12 82 80)"/>
-          </g>
-
-          <!-- Persona 2 (él, un poco más alto) -->
-          <g class="person p2">
-            <circle cx="170" cy="34" r="16"/>
-            <!-- torso -->
-            <path d="M170 50 C158 50, 152 64, 152 92 C152 110, 156 122, 158 134 L184 134 C182 122, 186 110, 186 92 C186 64, 182 50, 170 50 Z"/>
-            <!-- piernas -->
-            <rect class="leg l2a" x="160" y="130" width="9" height="52" rx="4"/>
-            <rect class="leg l2b" x="171" y="130" width="9" height="52" rx="4"/>
-            <!-- brazo hacia el centro -->
-            <rect x="124" y="78" width="36" height="8" rx="4" transform="rotate(-12 160 82)"/>
-          </g>
-        </g>
-      </svg>
-    </div>
-
-    <p class="ride-text" id="rideText">Algún atardecer... tú y yo, así 🌅</p>
+    <p class="ride-text" id="rideText">Contigo, hasta el atardecer es más bonito 🌅</p>
   </div>
 
   <!-- Mensaje gracioso si intenta salir / darle atrás -->
@@ -1313,8 +1243,8 @@
     const ride = document.getElementById('ride');
     const rideText = document.getElementById('rideText');
     ride.classList.add('show');
-    // el texto aparece cuando el caballo va cruzando
-    setTimeout(() => rideText.classList.add('show'), 2600);
+    // la frase aparece suave un momento después del atardecer
+    setTimeout(() => rideText.classList.add('show'), 1600);
   }
 
   // ----- Si intenta "darle atrás": mensaje gracioso -----
