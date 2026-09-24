@@ -806,42 +806,26 @@
   }
   .horse {
     position: absolute;
-    width: 160px;
-    animation: gallopBob 0.34s ease-in-out infinite;
+    font-size: 76px;
+    line-height: 1;
+    /* voltear para que miren hacia la izquierda (sentido del movimiento) y silueta oscura */
+    filter: brightness(0) saturate(0) opacity(0.92) drop-shadow(0 6px 8px rgba(0,0,0,0.3));
+    animation: gallopBob 0.36s ease-in-out infinite;
   }
-  .horse svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35)); }
-  /* el de atrás, más pequeño y desfasado */
-  .horse-back { left: 46px; top: 8px; transform: scale(0.82); opacity: 0.9; animation-delay: 0.12s; }
-  .horse-front { left: 0; top: 14px; }
+  /* el de atrás, más pequeño y desfasado para dar profundidad */
+  .horse-back { left: 70px; top: 0; }
+  .horse-front { left: 0; top: 18px; position: absolute; }
   @keyframes gallopBob {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    0%,100% { transform: scaleX(-1) translateY(0); }
+    50% { transform: scaleX(-1) translateY(-7px); }
   }
-  .horse-back { animation-name: gallopBobBack; }
+  .horse-back {
+    animation-name: gallopBobBack;
+    animation-delay: 0.15s;
+  }
   @keyframes gallopBobBack {
-    0%,100% { transform: scale(0.82) translateY(0); }
-    50% { transform: scale(0.82) translateY(-6px); }
-  }
-
-  .hleg { transform-box: fill-box; transform-origin: top center; }
-  /* caballo de atrás */
-  .hf1, .hb2 { animation: gLegA 0.34s ease-in-out infinite; }
-  .hf2, .hb1 { animation: gLegB 0.34s ease-in-out infinite; }
-  /* caballo de adelante (desfasado para que no galopen igual) */
-  .hf1b, .hb2b { animation: gLegA 0.34s ease-in-out 0.17s infinite; }
-  .hf2b, .hb1b { animation: gLegB 0.34s ease-in-out 0.17s infinite; }
-  @keyframes gLegA {
-    0%,100% { transform: rotate(20deg); }
-    50% { transform: rotate(-20deg); }
-  }
-  @keyframes gLegB {
-    0%,100% { transform: rotate(-20deg); }
-    50% { transform: rotate(20deg); }
-  }
-  .horse-tail { transform-box: fill-box; transform-origin: top right; animation: tailFlow 0.6s ease-in-out infinite; }
-  @keyframes tailFlow {
-    0%,100% { transform: rotate(-4deg); }
-    50% { transform: rotate(6deg); }
+    0%,100% { transform: scaleX(-1) scale(0.8) translateY(0); }
+    50% { transform: scaleX(-1) scale(0.8) translateY(-7px); }
   }
 
   /* salpicaduras de agua bajo los cascos */
@@ -854,9 +838,9 @@
     opacity: 0;
     animation: splashUp 0.5s ease-out infinite;
   }
-  .sp1 { left: 70px; animation-delay: 0s; }
-  .sp2 { left: 90px; animation-delay: 0.15s; }
-  .sp3 { left: 110px; animation-delay: 0.3s; }
+  .sp1 { left: 20px; animation-delay: 0s; }
+  .sp2 { left: 45px; animation-delay: 0.15s; }
+  .sp3 { left: 70px; animation-delay: 0.3s; }
   @keyframes splashUp {
     0% { opacity: 0.9; transform: translateY(0) scale(1); }
     100% { opacity: 0; transform: translateY(-18px) scale(0.3); }
@@ -1086,48 +1070,13 @@
     </div>
     <div class="ride-sea"></div>
 
-    <!-- Dos caballos galopando (silueta) -->
+    <!-- Dos caballos galopando (silueta con emoji) -->
     <div class="horses" id="horses">
-      <div class="horse horse-back">
-        <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#1c0d2e">
-            <!-- cuerpo -->
-            <path d="M55 78 C60 64, 80 58, 110 58 C140 58, 160 60, 172 62 C176 56, 182 46, 190 40 C186 52, 184 60, 182 66 C186 70, 188 78, 186 86 C182 84, 178 80, 174 76 C160 82, 130 84, 100 84 C80 84, 62 84, 55 78 Z"/>
-            <!-- cabeza y hocico -->
-            <path d="M188 40 C200 36, 210 40, 214 50 C216 58, 210 62, 202 60 C196 58, 190 52, 188 40 Z"/>
-            <!-- orejas -->
-            <path d="M192 38 l2 -9 l5 7 Z"/>
-            <!-- crin -->
-            <path d="M172 62 C180 52, 186 46, 192 40 C188 52, 184 60, 178 68 Z"/>
-            <!-- cola -->
-            <path class="horse-tail" d="M55 74 C40 76, 30 92, 26 110 C40 98, 50 90, 60 84 Z"/>
-            <!-- patas -->
-            <rect class="hleg hf1" x="158" y="82" width="9" height="52" rx="4"/>
-            <rect class="hleg hf2" x="144" y="82" width="9" height="52" rx="4"/>
-            <rect class="hleg hb1" x="78" y="80" width="9" height="52" rx="4"/>
-            <rect class="hleg hb2" x="64" y="80" width="9" height="52" rx="4"/>
-          </g>
-        </svg>
-      </div>
-
-      <div class="horse horse-front">
-        <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
-          <g fill="#241033">
-            <path d="M55 78 C60 64, 80 58, 110 58 C140 58, 160 60, 172 62 C176 56, 182 46, 190 40 C186 52, 184 60, 182 66 C186 70, 188 78, 186 86 C182 84, 178 80, 174 76 C160 82, 130 84, 100 84 C80 84, 62 84, 55 78 Z"/>
-            <path d="M188 40 C200 36, 210 40, 214 50 C216 58, 210 62, 202 60 C196 58, 190 52, 188 40 Z"/>
-            <path d="M192 38 l2 -9 l5 7 Z"/>
-            <path d="M172 62 C180 52, 186 46, 192 40 C188 52, 184 60, 178 68 Z"/>
-            <path class="horse-tail" d="M55 74 C40 76, 30 92, 26 110 C40 98, 50 90, 60 84 Z"/>
-            <rect class="hleg hf1b" x="158" y="82" width="9" height="52" rx="4"/>
-            <rect class="hleg hf2b" x="144" y="82" width="9" height="52" rx="4"/>
-            <rect class="hleg hb1b" x="78" y="80" width="9" height="52" rx="4"/>
-            <rect class="hleg hb2b" x="64" y="80" width="9" height="52" rx="4"/>
-          </g>
-        </svg>
-        <span class="splash sp1"></span>
-        <span class="splash sp2"></span>
-        <span class="splash sp3"></span>
-      </div>
+      <span class="horse horse-back">🐎</span>
+      <span class="horse horse-front">🐎</span>
+      <span class="splash sp1"></span>
+      <span class="splash sp2"></span>
+      <span class="splash sp3"></span>
     </div>
 
     <p class="ride-text" id="rideText">Algún atardecer... tú y yo, así 🌅</p>
