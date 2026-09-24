@@ -518,6 +518,237 @@
     box-shadow: 0 8px 20px var(--shadow);
   }
   .oops-btn:active { transform: scale(0.95); }
+
+  /* ====== Cajita como botón ====== */
+  .gift-btn {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+  }
+  .gift-btn:active { transform: scale(0.92); }
+  .gift-shake { animation: giftShake 0.5s ease-in-out 3 !important; }
+  @keyframes giftShake {
+    0%,100% { transform: rotate(0deg); }
+    25% { transform: rotate(-9deg); }
+    75% { transform: rotate(9deg); }
+  }
+
+  /* ====== Contador 3,2,1 ====== */
+  .countdown {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: radial-gradient(circle at center, rgba(60,30,110,0.75), rgba(20,10,40,0.95));
+    backdrop-filter: blur(4px);
+  }
+  .countdown.show { display: flex; }
+  .count-num {
+    font-size: 130px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 0 30px var(--accent);
+    line-height: 1;
+  }
+  .count-num.animate { animation: countPop 1s ease-in-out; }
+  @keyframes countPop {
+    0% { opacity: 0; transform: scale(2.4); }
+    30% { opacity: 1; transform: scale(1); }
+    70% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.4); }
+  }
+  .count-hint {
+    color: #e6d5ff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 6px;
+    opacity: 0.85;
+  }
+
+  /* ====== Pantalla San Andrés ====== */
+  .beach {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: none;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ff9a6b 0%, #ffcf87 22%, #7fe0e0 55%, #1fb6c9 100%);
+  }
+  .beach.show { display: block; animation: fadeUp 0.6s ease both; }
+
+  .sun {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff3c4, #ffd24d);
+    box-shadow: 0 0 60px 20px rgba(255, 210, 77, 0.6);
+    animation: sunGlow 3s ease-in-out infinite;
+  }
+  @keyframes sunGlow {
+    0%,100% { box-shadow: 0 0 60px 20px rgba(255,210,77,0.6); }
+    50% { box-shadow: 0 0 80px 30px rgba(255,210,77,0.85); }
+  }
+
+  .cloud {
+    position: absolute;
+    background: rgba(255,255,255,0.85);
+    border-radius: 40px;
+    width: 90px; height: 28px;
+    filter: blur(1px);
+  }
+  .cloud::before, .cloud::after {
+    content: ""; position: absolute; background: inherit; border-radius: 50%;
+  }
+  .cloud::before { width: 40px; height: 40px; top: -16px; left: 12px; }
+  .cloud::after { width: 30px; height: 30px; top: -10px; right: 14px; }
+  .c1 { top: 14%; left: -100px; animation: drift 16s linear infinite; }
+  .c2 { top: 26%; left: -160px; transform: scale(0.7); animation: drift 22s linear infinite; }
+  @keyframes drift {
+    from { left: -160px; }
+    to { left: 110%; }
+  }
+
+  .plane {
+    position: absolute;
+    top: 18%;
+    left: -60px;
+    font-size: 34px;
+    animation: flyAcross 9s linear infinite;
+  }
+  @keyframes flyAcross {
+    0% { left: -60px; transform: translateY(0) rotate(6deg); }
+    50% { transform: translateY(-14px) rotate(6deg); }
+    100% { left: 110%; transform: translateY(0) rotate(6deg); }
+  }
+
+  .palm {
+    position: absolute;
+    bottom: 16%;
+    font-size: 64px;
+    transform-origin: bottom center;
+    animation: sway 3.5s ease-in-out infinite;
+  }
+  .palm-l { left: 6%; }
+  .palm-r { right: 6%; transform: scaleX(-1); animation-delay: 0.6s; }
+  @keyframes sway {
+    0%,100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+  }
+  .palm-r { animation-name: swayR; }
+  @keyframes swayR {
+    0%,100% { transform: scaleX(-1) rotate(-4deg); }
+    50% { transform: scaleX(-1) rotate(4deg); }
+  }
+
+  .waves {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 90px;
+    background:
+      radial-gradient(circle at 20px -10px, transparent 20px, rgba(255,255,255,0.35) 21px 24px, transparent 25px) 0 0/48px 40px repeat-x,
+      linear-gradient(180deg, rgba(31,182,201,0.2), #0e8ba0);
+    animation: waveMove 4s linear infinite;
+  }
+  @keyframes waveMove {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 48px 0, 0 0; }
+  }
+
+  .beach-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    color: #2a2050;
+  }
+  .beach-kicker {
+    display: inline-block;
+    background: rgba(255,255,255,0.85);
+    color: #b0006a;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin: 0 0 10px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    animation: reminderPulse 2s ease-in-out infinite;
+  }
+  .beach-title {
+    color: #fff;
+    font-size: 28px;
+    margin: 0 0 20px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  }
+
+  /* Boarding pass */
+  .ticket {
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+    margin-bottom: 22px;
+    opacity: 0;
+    transform: translateX(-120%) rotate(-6deg);
+    animation: ticketIn 0.9s cubic-bezier(.2,.8,.3,1.2) 0.4s forwards;
+  }
+  @keyframes ticketIn {
+    to { opacity: 1; transform: translateX(0) rotate(0deg); }
+  }
+  .ticket-left {
+    flex: 1;
+    padding: 14px 16px;
+    text-align: left;
+  }
+  .t-label { font-size: 11px; letter-spacing: 2px; color: #9b5cff; font-weight: 800; margin: 0 0 6px; }
+  .t-route { font-size: 22px; font-weight: 800; color: #2a2050; margin: 0 0 12px; }
+  .t-route span { color: #9b5cff; margin: 0 8px; }
+  .t-row { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .t-row > div { display: flex; flex-direction: column; }
+  .t-k { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+  .t-v { font-size: 13px; font-weight: 700; color: #3a2255; }
+  .ticket-right {
+    width: 84px;
+    background: linear-gradient(160deg, var(--accent), var(--accent2));
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border-left: 2px dashed rgba(255,255,255,0.6);
+    position: relative;
+  }
+  .t-seat { font-size: 10px; letter-spacing: 1px; opacity: 0.9; }
+  .t-seat-num { font-size: 30px; font-weight: 800; }
+  .t-fly { font-size: 8px; letter-spacing: 1px; margin-top: 6px; opacity: 0.9; }
+
+  .beach-btn { max-width: 320px; width: 100%; }
+  .beach-final {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 16px;
+    opacity: 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .beach-final.show { animation: fadeUp 0.6s ease forwards; }
 </style>
 </head>
 <body>
@@ -642,16 +873,62 @@
     <p class="sub final-msg" id="finalMsg">Estaré esperando 💜</p>
 
     <div class="surprise" id="surprise">
-      <div class="gift">
+      <button class="gift gift-btn" id="giftBtn" aria-label="Abrir sorpresa">
         <div class="gift-lid"></div>
         <div class="gift-box"></div>
         <div class="gift-ribbon"></div>
         <span class="gift-spark s1">✨</span>
         <span class="gift-spark s2">✨</span>
         <span class="gift-spark s3">✨</span>
-      </div>
-      <p class="surprise-text">Hay sorpresa 🎁 pero los detalles... solo por chat 😏</p>
+      </button>
+      <p class="surprise-text">Hay una sorpresa... tócala 🎁</p>
     </div>
+  </div>
+
+  <!-- Contador 3, 2, 1 -->
+  <div class="countdown" id="countdown">
+    <div class="count-num" id="countNum">3</div>
+    <p class="count-hint">Prepárate...</p>
+  </div>
+
+  <!-- Segunda invitación: San Andrés -->
+  <div class="beach" id="beach">
+    <div class="sun"></div>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="plane" id="plane">✈️</div>
+    <div class="palm palm-l">🌴</div>
+    <div class="palm palm-r">🌴</div>
+
+    <div class="beach-content">
+      <p class="beach-kicker">✈️ Destino sorpresa desbloqueado</p>
+      <h1 class="beach-title">¿Nos vamos a San Andrés? 🏝️</h1>
+
+      <div class="ticket" id="ticket">
+        <div class="ticket-left">
+          <p class="t-label">BOARDING PASS</p>
+          <p class="t-route">TÚ <span>✈</span> YO</p>
+          <div class="t-row">
+            <div><span class="t-k">Destino</span><span class="t-v">San Andrés 🇨🇴</span></div>
+            <div><span class="t-k">Vista</span><span class="t-v">Mar de 7 colores 🌊</span></div>
+          </div>
+          <div class="t-row">
+            <div><span class="t-k">Pasajera</span><span class="t-v">La más linda 💜</span></div>
+            <div><span class="t-k">Fecha</span><span class="t-v">Pronto ✨</span></div>
+          </div>
+        </div>
+        <div class="ticket-right">
+          <span class="t-seat">SEAT</span>
+          <span class="t-seat-num">1A</span>
+          <span class="t-fly">FLY WITH ME</span>
+        </div>
+      </div>
+
+      <button class="yes beach-btn" id="beachBtn">¡Obvio que sí, empaco ya! 🧳</button>
+      <p class="beach-final" id="beachFinal">Nos espera el mar 🌊💜</p>
+    </div>
+
+    <div class="waves"></div>
   </div>
 
   <!-- Mensaje gracioso si intenta salir / darle atrás -->
@@ -760,6 +1037,79 @@
     setTimeout(() => {
       document.getElementById('surprise').classList.add('show');
     }, 5200);
+  });
+
+  // ----- Sorpresa: contador 3,2,1 y viaje a San Andrés -----
+  const giftBtn = document.getElementById('giftBtn');
+  const countdown = document.getElementById('countdown');
+  const countNum = document.getElementById('countNum');
+  const beach = document.getElementById('beach');
+  let giftOpened = false;
+
+  giftBtn.addEventListener('click', () => {
+    if (giftOpened) return;
+    giftOpened = true;
+
+    // 1) la cajita tiembla
+    giftBtn.classList.add('gift-shake');
+
+    // 2) tras el temblor, arranca el contador
+    setTimeout(startCountdown, 1400);
+  });
+
+  function startCountdown() {
+    countdown.classList.add('show');
+    let n = 3;
+
+    function tick() {
+      countNum.textContent = n;
+      // reiniciar animación
+      countNum.classList.remove('animate');
+      void countNum.offsetWidth;
+      countNum.classList.add('animate');
+
+      if (n === 0) {
+        setTimeout(showBeach, 700);
+        return;
+      }
+      n--;
+      setTimeout(tick, 1000);
+    }
+    tick();
+  }
+
+  function showBeach() {
+    countdown.classList.remove('show');
+    beach.classList.add('show');
+    // emojis de playa flotando
+    beachFloaties();
+  }
+
+  // Emojis tropicales subiendo en la pantalla de playa
+  function beachFloaties() {
+    const beachEmojis = ['🐚','🌴','🏖️','🌊','☀️','🍹','🐠','⭐'];
+    for (let i = 0; i < 16; i++) {
+      const s = document.createElement('span');
+      s.textContent = beachEmojis[Math.floor(Math.random() * beachEmojis.length)];
+      s.style.position = 'absolute';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.bottom = '-40px';
+      s.style.fontSize = (18 + Math.random() * 18) + 'px';
+      s.style.opacity = '0.85';
+      s.style.zIndex = '1';
+      s.style.animation = 'floatUp ' + (7 + Math.random() * 7) + 's linear ' + (Math.random() * 6) + 's infinite';
+      beach.appendChild(s);
+    }
+  }
+
+  // Botón final del viaje
+  const beachBtn = document.getElementById('beachBtn');
+  const beachFinal = document.getElementById('beachFinal');
+  beachBtn.addEventListener('click', () => {
+    beachFinal.classList.add('show');
+    beachBtn.textContent = '¡Nos vamos! 🧳✈️';
+    // ráfaga extra de emojis
+    beachFloaties();
   });
 
   // ----- Si intenta "darle atrás": mensaje gracioso -----
