@@ -749,6 +749,33 @@
     text-shadow: 0 2px 8px rgba(0,0,0,0.2);
   }
   .beach-final.show { animation: fadeUp 0.6s ease forwards; }
+
+  .replay-btn {
+    margin-top: 14px;
+    background: rgba(255,255,255,0.85);
+    color: #6a2fc0;
+    font-size: 14px;
+    padding: 10px 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .replay-btn.show { opacity: 1; pointer-events: auto; }
+
+  /* ====== Confeti ====== */
+  .confetti {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 14px;
+    z-index: 45;
+    opacity: 0.95;
+    animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0.9; }
+  }
 </style>
 </head>
 <body>
@@ -902,19 +929,23 @@
 
     <div class="beach-content">
       <p class="beach-kicker">✈️ Destino sorpresa desbloqueado</p>
-      <h1 class="beach-title">¿Nos vamos a San Andrés? 🏝️</h1>
+      <h1 class="beach-title">Juli... ¿nos vamos a San Andrés? 🏝️</h1>
 
       <div class="ticket" id="ticket">
         <div class="ticket-left">
           <p class="t-label">BOARDING PASS</p>
-          <p class="t-route">TÚ <span>✈</span> YO</p>
+          <p class="t-route">JULI <span>✈</span> YO</p>
           <div class="t-row">
             <div><span class="t-k">Destino</span><span class="t-v">San Andrés 🇨🇴</span></div>
             <div><span class="t-k">Vista</span><span class="t-v">Mar de 7 colores 🌊</span></div>
           </div>
           <div class="t-row">
-            <div><span class="t-k">Pasajera</span><span class="t-v">La más linda 💜</span></div>
+            <div><span class="t-k">Pasajera</span><span class="t-v">Juli 💜</span></div>
             <div><span class="t-k">Fecha</span><span class="t-v">1 – 7 Ene 2027 ✨</span></div>
+          </div>
+          <div class="t-row">
+            <div><span class="t-k">Duración</span><span class="t-v">7 días / 6 noches ☀️</span></div>
+            <div><span class="t-k">Faltan</span><span class="t-v" id="daysLeft">— días</span></div>
           </div>
         </div>
         <div class="ticket-right">
@@ -926,6 +957,7 @@
 
       <button class="yes beach-btn" id="beachBtn">¡Obvio que sí, empaco ya! 🧳</button>
       <p class="beach-final" id="beachFinal">Nos espera el mar 🌊💜</p>
+      <button class="replay-btn" id="replayBtn">Ver de nuevo 🔄</button>
     </div>
 
     <div class="waves"></div>
@@ -1050,12 +1082,25 @@
     if (giftOpened) return;
     giftOpened = true;
 
+    // vibración corta en celular (si el navegador lo permite)
+    if (navigator.vibrate) navigator.vibrate(60);
+
     // 1) la cajita tiembla
     giftBtn.classList.add('gift-shake');
 
     // 2) tras el temblor, arranca el contador
     setTimeout(startCountdown, 1400);
   });
+
+  // Días que faltan para el viaje (1 de enero de 2027)
+  function updateDaysLeft() {
+    const target = new Date('2027-01-01T00:00:00');
+    const now = new Date();
+    const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+    const el = document.getElementById('daysLeft');
+    if (!el) return;
+    el.textContent = diff > 0 ? (diff + ' días') : '¡Es hoy! 🎉';
+  }
 
   function startCountdown() {
     countdown.classList.add('show');
@@ -1067,6 +1112,7 @@
       countNum.classList.remove('animate');
       void countNum.offsetWidth;
       countNum.classList.add('animate');
+      if (navigator.vibrate) navigator.vibrate(30);
 
       if (n === 0) {
         setTimeout(showBeach, 700);
@@ -1081,8 +1127,24 @@
   function showBeach() {
     countdown.classList.remove('show');
     beach.classList.add('show');
-    // emojis de playa flotando
-    beachFloaties();
+    updateDaysLeft();      // calcula los días que faltan
+    beachFloaties();       // emojis de playa flotando
+  }
+
+  // ----- Confeti -----
+  function launchConfetti(amount) {
+    const colors = ['#9b5cff', '#ff8fd0', '#ffd24d', '#7fe0e0', '#ffffff', '#c08bff'];
+    for (let i = 0; i < amount; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+      c.style.animationDelay = (Math.random() * 0.6) + 's';
+      if (Math.random() > 0.5) c.style.borderRadius = '50%';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
+    }
   }
 
   // Emojis tropicales subiendo en la pantalla de playa
@@ -1105,11 +1167,23 @@
   // Botón final del viaje
   const beachBtn = document.getElementById('beachBtn');
   const beachFinal = document.getElementById('beachFinal');
+  const replayBtn = document.getElementById('replayBtn');
+  let accepted = false;
   beachBtn.addEventListener('click', () => {
+    if (accepted) return;
+    accepted = true;
     beachFinal.classList.add('show');
     beachBtn.textContent = '¡Nos vamos! 🧳✈️';
-    // ráfaga extra de emojis
-    beachFloaties();
+    if (navigator.vibrate) navigator.vibrate([40, 60, 40]);
+    launchConfetti(120);           // ¡confeti!
+    beachFloaties();               // ráfaga extra de emojis
+    setTimeout(() => replayBtn.classList.add('show'), 900);
+  });
+
+  // Ver de nuevo: reinicia toda la experiencia (sin el aviso de salida)
+  replayBtn.addEventListener('click', () => {
+    allowLeave = true;
+    location.reload();
   });
 
   // ----- Si intenta "darle atrás": mensaje gracioso -----
@@ -1146,8 +1220,10 @@
     history.pushState(null, '', location.href);
   });
 
-  // Aviso al intentar cerrar/recargar la pestaña
+  // Aviso al intentar cerrar/recargar la pestaña (se puede permitir para "Ver de nuevo")
+  let allowLeave = false;
   window.addEventListener('beforeunload', (e) => {
+    if (allowLeave) return;
     e.preventDefault();
     e.returnValue = '';
   });
