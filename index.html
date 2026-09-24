@@ -795,20 +795,27 @@
   .ride-text {
     position: absolute;
     left: 50%;
-    bottom: 18%;
-    transform: translateX(-50%);
-    width: 88%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 86%;
     max-width: 420px;
     text-align: center;
     color: #fff;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
-    line-height: 1.35;
-    text-shadow: 0 3px 16px rgba(0,0,0,0.55);
+    line-height: 1.4;
+    text-shadow: 0 3px 18px rgba(0,0,0,0.6);
     opacity: 0;
     z-index: 4;
   }
-  .ride-text.show { animation: fadeUp 1s ease forwards; }
+  @media (max-width: 480px) {
+    .ride-text { font-size: 22px; width: 88%; }
+  }
+  .ride-text.show { animation: riseCenter 1s ease forwards; }
+  @keyframes riseCenter {
+    from { opacity: 0; transform: translate(-50%, calc(-50% + 14px)); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+  }
 
   /* ====== Confeti ====== */
   .confetti {
