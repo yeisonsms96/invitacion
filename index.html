@@ -750,6 +750,137 @@
   }
   .beach-final.show { animation: fadeUp 0.6s ease forwards; }
 
+  /* ====== Escena cabalgata al atardecer ====== */
+  .ride {
+    position: fixed;
+    inset: 0;
+    z-index: 44;
+    display: none;
+    overflow: hidden;
+  }
+  .ride.show { display: block; animation: fadeUp 0.8s ease both; }
+
+  .ride-sky {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 62%;
+    background: linear-gradient(180deg, #2a1a5e 0%, #6a2f8a 30%, #ff6b6b 62%, #ffa94d 88%, #ffd27f 100%);
+    overflow: hidden;
+  }
+  .ride-sun {
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff2c4, #ffd24d 55%, #ff9a3c);
+    box-shadow: 0 0 80px 30px rgba(255, 180, 80, 0.7);
+    animation: sunSink 6s ease-in forwards;
+  }
+  @keyframes sunSink {
+    0% { bottom: 30px; }
+    100% { bottom: -30px; }
+  }
+
+  .ride-sea {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 38%;
+    background: linear-gradient(180deg, #ffb36b 0%, #d98a5a 8%, #6a4b8a 40%, #2a1a5e 100%);
+  }
+  /* reflejo dorado del sol en el mar */
+  .ride-sun-reflection {
+    position: absolute;
+    left: 50%;
+    top: 62%;
+    transform: translateX(-50%);
+    margin-left: -35px;
+    width: 70px;
+    height: 30%;
+    background: linear-gradient(180deg, rgba(255,220,150,0.85), rgba(255,220,150,0));
+    filter: blur(3px);
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%,100% { opacity: 0.6; width: 70px; }
+    50% { opacity: 0.9; width: 90px; }
+  }
+
+  /* Caballo: cruza la orilla de derecha a izquierda con leve galope */
+  .horse {
+    position: absolute;
+    bottom: 24%;
+    right: -180px;
+    width: 150px;
+    z-index: 3;
+    animation: gallopAcross 9s linear 0.6s forwards;
+  }
+  .horse svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.35)); }
+  @keyframes gallopAcross {
+    0% { right: -180px; }
+    100% { right: 105%; }
+  }
+  /* bote de galope */
+  .horse svg { animation: gallopBob 0.32s ease-in-out infinite; }
+  @keyframes gallopBob {
+    0%,100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-6px) rotate(1deg); }
+  }
+
+  .hleg { transform-box: fill-box; transform-origin: top center; }
+  .hf1, .hb2 { animation: gLegA 0.32s ease-in-out infinite; }
+  .hf2, .hb1 { animation: gLegB 0.32s ease-in-out infinite; }
+  @keyframes gLegA {
+    0%,100% { transform: rotate(22deg); }
+    50% { transform: rotate(-22deg); }
+  }
+  @keyframes gLegB {
+    0%,100% { transform: rotate(-22deg); }
+    50% { transform: rotate(22deg); }
+  }
+  .horse-tail { transform-box: fill-box; transform-origin: top right; animation: tailFlow 0.6s ease-in-out infinite; }
+  @keyframes tailFlow {
+    0%,100% { transform: rotate(-4deg); }
+    50% { transform: rotate(6deg); }
+  }
+
+  /* salpicaduras de agua bajo los cascos */
+  .splash {
+    position: absolute;
+    bottom: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    opacity: 0;
+    animation: splashUp 0.5s ease-out infinite;
+  }
+  .sp1 { left: 24px; animation-delay: 0s; }
+  .sp2 { left: 40px; animation-delay: 0.15s; }
+  .sp3 { left: 56px; animation-delay: 0.3s; }
+  @keyframes splashUp {
+    0% { opacity: 0.9; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-18px) scale(0.3); }
+  }
+
+  .ride-text {
+    position: absolute;
+    left: 50%;
+    bottom: 12%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    text-shadow: 0 3px 14px rgba(0,0,0,0.5);
+    opacity: 0;
+    z-index: 4;
+  }
+  .ride-text.show { animation: fadeUp 1s ease forwards; }
+
   /* ====== Confeti ====== */
   .confetti {
     position: fixed;
@@ -948,6 +1079,50 @@
     </div>
 
     <div class="waves"></div>
+  </div>
+
+  <!-- Escena final: cabalgata al atardecer -->
+  <div class="ride" id="ride">
+    <div class="ride-sky">
+      <div class="ride-sun"></div>
+      <div class="ride-sun-reflection"></div>
+    </div>
+    <div class="ride-sea"></div>
+
+    <!-- Caballo galopando (silueta) -->
+    <div class="horse" id="horse">
+      <svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#241033">
+          <!-- cuerpo -->
+          <ellipse cx="110" cy="70" rx="52" ry="26"/>
+          <!-- cuello -->
+          <path d="M150 60 C168 44, 176 30, 184 22 C190 30, 188 46, 176 60 C168 70, 158 72, 150 70 Z"/>
+          <!-- cabeza -->
+          <path d="M182 20 C196 16, 202 24, 200 34 C199 40, 192 42, 186 40 C182 38, 180 30, 182 20 Z"/>
+          <!-- orejas -->
+          <path d="M186 18 l3 -8 l4 7 Z"/>
+          <!-- crin -->
+          <path d="M150 46 C160 40, 170 34, 182 24 C176 40, 170 52, 158 62 Z" opacity="0.85"/>
+          <!-- cola -->
+          <path class="horse-tail" d="M58 62 C40 66, 30 84, 26 104 C40 92, 52 84, 62 76 Z"/>
+          <!-- patas -->
+          <g class="legs-front">
+            <rect class="hleg hf1" x="140" y="88" width="9" height="46" rx="4"/>
+            <rect class="hleg hf2" x="126" y="90" width="9" height="46" rx="4"/>
+          </g>
+          <g class="legs-back">
+            <rect class="hleg hb1" x="86" y="88" width="9" height="46" rx="4"/>
+            <rect class="hleg hb2" x="72" y="90" width="9" height="46" rx="4"/>
+          </g>
+        </g>
+      </svg>
+      <!-- salpicaduras -->
+      <span class="splash sp1"></span>
+      <span class="splash sp2"></span>
+      <span class="splash sp3"></span>
+    </div>
+
+    <p class="ride-text" id="rideText">Algún atardecer... tú y yo, así 🌅🐎</p>
   </div>
 
   <!-- Mensaje gracioso si intenta salir / darle atrás -->
@@ -1163,7 +1338,19 @@
     if (navigator.vibrate) navigator.vibrate([40, 60, 40]);
     launchConfetti(120);           // ¡confeti!
     beachFloaties();               // ráfaga extra de emojis
+
+    // Al rato, aparece la escena de la cabalgata al atardecer
+    setTimeout(showRide, 3200);
   });
+
+  // ----- Escena cabalgata al atardecer -----
+  function showRide() {
+    const ride = document.getElementById('ride');
+    const rideText = document.getElementById('rideText');
+    ride.classList.add('show');
+    // el texto aparece cuando el caballo va cruzando
+    setTimeout(() => rideText.classList.add('show'), 2600);
+  }
 
   // ----- Si intenta "darle atrás": mensaje gracioso -----
   const oops = document.getElementById('oops');
